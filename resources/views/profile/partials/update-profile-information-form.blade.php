@@ -47,6 +47,21 @@
             @endif
         </div>
 
+        <div class="flex items-start gap-3">
+            <input
+                id="carry_forward_enabled"
+                name="carry_forward_enabled"
+                type="checkbox"
+                value="1"
+                @checked(old('carry_forward_enabled', $user->carry_forward_enabled))
+                class="mt-1 rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
+            >
+            <div>
+                <x-input-label for="carry_forward_enabled" :value="__('Allow arrears carry-forward on invoices')" />
+                <p class="text-sm text-gray-600">When enabled, you can carry forward balances into new invoices. Default is off.</p>
+            </div>
+        </div>
+
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Save') }}</x-primary-button>
 

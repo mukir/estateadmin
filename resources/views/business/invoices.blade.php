@@ -10,6 +10,7 @@
         'label' => $resident->full_name,
         'estate_id' => $resident->estate_id,
     ]);
+    $carryForwardEnabled = auth()->user()?->carry_forward_enabled ?? false;
     $invoiceCount = $invoices->count();
     $totalInvoiced = $invoices->sum('total_amount');
     $totalPaid = $invoices->sum('amount_paid');
@@ -117,12 +118,18 @@
                             <option value="sent">Sent + email</option>
                         </select>
                     </div>
-                    <label class="flex items-start gap-2 text-sm font-medium text-slate-700">
-                        <input type="checkbox" name="carry_forward" value="1" class="mt-1 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500">
-                        <span>
-                            Bring forward any open balance from the previous invoice for each resident and close the older invoice automatically.
-                        </span>
-                    </label>
+                    @if ($carryForwardEnabled)
+                        <label class="flex items-start gap-2 text-sm font-medium text-slate-700">
+                            <input type="checkbox" name="carry_forward" value="1" class="mt-1 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500">
+                            <span>
+                                Bring forward any open balance from the previous invoice for each resident and close the older invoice automatically.
+                            </span>
+                        </label>
+                    @else
+                        <div class="rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-800">
+                            Arrears carry-forward is disabled for your account. Enable it in Profile settings to use on recurring invoices.
+                        </div>
+                    @endif
                     <div class="md:col-span-4 flex justify-end">
                         <x-primary-button class="px-5">Generate invoices</x-primary-button>
                     </div>
@@ -215,13 +222,19 @@
                         <input type="checkbox" name="send_now" value="1" class="rounded border-slate-300 text-emerald-600 focus:ring-emerald-500">
                         Email invoice with PDF attachment
                     </label>
-                    <label class="flex items-start gap-2 text-sm font-medium text-slate-700">
-                        <input type="checkbox" name="carry_forward" value="1" class="mt-1 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500">
-                        <span>
-                            Bring forward any open balance from the previous invoice for this resident and close the old invoice.
-                            If found, the arrears amount is added as a line item here.
-                        </span>
-                    </label>
+                    @if ($carryForwardEnabled)
+                        <label class="flex items-start gap-2 text-sm font-medium text-slate-700">
+                            <input type="checkbox" name="carry_forward" value="1" class="mt-1 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500">
+                            <span>
+                                Bring forward any open balance from the previous invoice for this resident and close the old invoice.
+                                If found, the arrears amount is added as a line item here.
+                            </span>
+                        </label>
+                    @else
+                        <div class="rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-800">
+                            Arrears carry-forward is disabled for your account. Enable it in Profile settings to use on new invoices.
+                        </div>
+                    @endif
                     <div class="md:col-span-2 flex justify-end">
                         <x-primary-button class="px-5">Create invoice</x-primary-button>
                     </div>

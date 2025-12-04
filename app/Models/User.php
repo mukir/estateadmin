@@ -24,6 +24,7 @@ class User extends Authenticatable
         'password',
         'is_business_owner',
         'status',
+        'carry_forward_enabled',
     ];
 
     /**
@@ -48,6 +49,7 @@ class User extends Authenticatable
             'password' => 'hashed',
             'is_business_owner' => 'boolean',
             'mfa_enabled' => 'boolean',
+            'carry_forward_enabled' => 'boolean',
         ];
     }
 

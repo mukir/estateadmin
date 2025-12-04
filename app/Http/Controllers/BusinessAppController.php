@@ -126,8 +126,9 @@ class BusinessAppController extends Controller
             ->orderByDesc('invoice_date')
             ->limit(50)
             ->get();
+        $carryForwardEnabled = auth()->user()?->carry_forward_enabled ?? false;
 
-        return view('business.invoices', compact('estates', 'houses', 'residents', 'invoices'));
+        return view('business.invoices', compact('estates', 'houses', 'residents', 'invoices', 'carryForwardEnabled'));
     }
 
     public function storeInvoice(Request $request): RedirectResponse
@@ -145,6 +146,9 @@ class BusinessAppController extends Controller
             'send_now' => ['nullable', 'boolean'],
             'carry_forward' => ['nullable', 'boolean'],
         ]);
+
+        $carryForwardAllowed = auth()->user()?->carry_forward_enabled ?? false;
+        $carryForwardRequested = $carryForwardAllowed && ($data['carry_forward'] ?? false);
 
         $invoice = Invoice::create([
             'business_id' => BusinessContext::id(),
@@ -165,7 +169,7 @@ class BusinessAppController extends Controller
             'quantity' => 1,
         ]);
 
-        if ($data['carry_forward'] ?? false) {
+        if ($carryForwardRequested) {
             $previous = Invoice::where('resident_id', $data['resident_id'])
                 ->where('balance', '>', 0)
                 ->where('id', '!=', $invoice->id)
@@ -217,7 +221,7 @@ class BusinessAppController extends Controller
         $invoiceDate = $data['invoice_date'] ?? now()->toDateString();
         $dueDate = $data['due_date'] ?? now()->addDays(7)->toDateString();
         $status = $data['status'] ?? 'draft';
-        $carryForward = $data['carry_forward'] ?? false;
+        $carryForward = (auth()->user()?->carry_forward_enabled ?? false) && ($data['carry_forward'] ?? false);
 
         $created = 0;
 
