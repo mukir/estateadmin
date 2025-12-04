@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\InvoiceMailable;
 use App\Mail\PaymentReceiptMailable;
+use App\Models\Business;
 use App\Models\FollowUp;
 use App\Models\Estate;
 use App\Models\House;
@@ -310,8 +311,12 @@ class BusinessAppController extends Controller
         return back()->with('status', 'Payment recorded and receipt issued.');
     }
 
-    public function invoicePdf(Invoice $invoice)
+    public function invoicePdf(Business $business, Invoice $invoice)
     {
+        if ($invoice->business_id !== $business->id) {
+            abort(404);
+        }
+
         $invoice->load(['resident', 'house', 'estate', 'items']);
         $pdf = Pdf::loadView('pdf.invoice', ['invoice' => $invoice]);
 
