@@ -53,12 +53,19 @@ class BusinessOnboardingController extends Controller
 
         BusinessContext::set($business);
 
-        return response()->json([
+        $payload = [
             'message' => 'Business created. Welcome to your trial.',
             'business' => $business,
             'owner' => $user,
             'dashboard_url' => url("/b/{$business->slug}/dashboard"),
-        ], 201);
+        ];
+
+        if ($request->expectsJson() || $request->wantsJson()) {
+            return response()->json($payload, 201);
+        }
+
+        return response()
+            ->view('onboarding.trial-created', $payload, 201);
     }
 
     protected function uniqueSlug(string $slug): string
