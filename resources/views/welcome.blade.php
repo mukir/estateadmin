@@ -346,7 +346,7 @@
         <nav>
             <div class="logo">
                 @if (!empty($branding['logo_url']))
-                    <img src="{{ $branding['logo_url'] }}" alt="{{ $branding['platform_name'] ?? 'Estate Admin' }}" style="height:56px; width:56px; object-fit:contain;">
+                    <img src="{{ $branding['logo_url'] }}" alt="{{ $branding['platform_name'] ?? 'Estate Admin' }}" style="height:72px; width:72px; object-fit:contain;">
                 @else
                     <div class="logo-mark">E</div>
                 @endif
