@@ -20,6 +20,8 @@ Route::get('/', function () {
     return view('welcome');
 })->name('landing');
 
+Route::view('/docs', 'docs')->name('docs');
+
 Route::post('/start-trial', [BusinessOnboardingController::class, 'store'])->name('onboarding.start');
 
 Route::middleware('auth')->group(function () {

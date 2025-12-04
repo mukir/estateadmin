@@ -352,6 +352,7 @@
                 <a href="#features">Features</a>
                 <a href="#automation">Automations</a>
                 <a href="#reports">Reports</a>
+                <a href="{{ route('docs') }}">Docs</a>
                 <a href="#pricing">Pricing</a>
                 @if (Route::has('login'))
                     @auth
