@@ -52,7 +52,7 @@
 
 @auth
     <nav class="border-b border-slate-200 bg-white/80 backdrop-blur">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-3">
+        <div class="w-full px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-3">
             <a href="{{ route('dashboard') }}" class="flex items-center gap-3">
                 @if (!empty($branding['logo_url']))
                     <img src="{{ $branding['logo_url'] }}" alt="{{ $branding['platform_name'] ?? config('app.name', 'Dashboard') }}" class="h-14 w-auto max-w-[200px] object-contain">
