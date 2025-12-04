@@ -143,9 +143,11 @@ class BusinessAppController extends Controller
             'due_date' => ['nullable', 'date'],
             'status' => ['nullable', Rule::in(['draft', 'sent'])],
             'send_now' => ['nullable', 'boolean'],
+            'carry_forward' => ['nullable', 'boolean'],
         ]);
 
         $invoice = Invoice::create([
+            'business_id' => BusinessContext::id(),
             'estate_id' => $data['estate_id'],
             'house_id' => $data['house_id'],
             'resident_id' => $data['resident_id'],
@@ -162,6 +164,30 @@ class BusinessAppController extends Controller
             'amount' => $data['amount'],
             'quantity' => 1,
         ]);
+
+        if ($data['carry_forward'] ?? false) {
+            $previous = Invoice::where('resident_id', $data['resident_id'])
+                ->where('balance', '>', 0)
+                ->where('id', '!=', $invoice->id)
+                ->orderByDesc('invoice_date')
+                ->first();
+
+            if ($previous) {
+                InvoiceItem::create([
+                    'business_id' => BusinessContext::id(),
+                    'invoice_id' => $invoice->id,
+                    'description' => 'Arrears b/f from '.$previous->reference,
+                    'amount' => $previous->balance,
+                    'quantity' => 1,
+                ]);
+
+                // Close the previous invoice since its balance is moved forward.
+                $previous->amount_paid = $previous->total_amount;
+                $previous->balance = 0;
+                $previous->status = 'paid';
+                $previous->saveQuietly();
+            }
+        }
 
         $invoice->recalculateTotals();
         $invoice->generateReference();

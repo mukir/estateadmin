@@ -209,6 +209,13 @@
                         <input type="checkbox" name="send_now" value="1" class="rounded border-slate-300 text-emerald-600 focus:ring-emerald-500">
                         Email invoice with PDF attachment
                     </label>
+                    <label class="flex items-start gap-2 text-sm font-medium text-slate-700">
+                        <input type="checkbox" name="carry_forward" value="1" class="mt-1 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500">
+                        <span>
+                            Bring forward any open balance from the previous invoice for this resident and close the old invoice.
+                            If found, the arrears amount is added as a line item here.
+                        </span>
+                    </label>
                     <div class="md:col-span-2 flex justify-end">
                         <x-primary-button class="px-5">Create invoice</x-primary-button>
                     </div>
