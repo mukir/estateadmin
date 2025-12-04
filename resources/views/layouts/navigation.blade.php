@@ -53,11 +53,11 @@
 @auth
     <nav class="border-b border-slate-200 bg-white/80 backdrop-blur">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex items-center justify-between gap-3">
-            <a href="{{ route('dashboard') }}" class="flex items-center gap-2">
+            <a href="{{ route('dashboard') }}" class="flex items-center gap-3">
                 @if (!empty($branding['logo_url']))
-                    <img src="{{ $branding['logo_url'] }}" alt="{{ $branding['platform_name'] ?? config('app.name', 'Dashboard') }}" class="h-8 w-8 rounded-md object-contain bg-white">
+                    <img src="{{ $branding['logo_url'] }}" alt="{{ $branding['platform_name'] ?? config('app.name', 'Dashboard') }}" class="h-10 w-10 rounded-md object-contain bg-white">
                 @else
-                    <x-application-logo class="block h-8 w-8 fill-current text-indigo-600" />
+                    <x-application-logo class="block h-10 w-10 fill-current text-indigo-600" />
                 @endif
             </a>
             <div class="flex items-center gap-2">
