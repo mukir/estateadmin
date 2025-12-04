@@ -211,11 +211,13 @@ class BusinessAppController extends Controller
             'invoice_date' => ['nullable', 'date'],
             'due_date' => ['nullable', 'date'],
             'status' => ['nullable', Rule::in(['draft', 'sent'])],
+            'carry_forward' => ['nullable', 'boolean'],
         ]);
 
         $invoiceDate = $data['invoice_date'] ?? now()->toDateString();
         $dueDate = $data['due_date'] ?? now()->addDays(7)->toDateString();
         $status = $data['status'] ?? 'draft';
+        $carryForward = $data['carry_forward'] ?? false;
 
         $created = 0;
 
@@ -238,6 +240,7 @@ class BusinessAppController extends Controller
             }
 
             $invoice = Invoice::create([
+                'business_id' => BusinessContext::id(),
                 'estate_id' => $house->estate_id,
                 'house_id' => $house->id,
                 'resident_id' => $resident->id,
@@ -267,6 +270,28 @@ class BusinessAppController extends Controller
                     'amount' => $charge->amount,
                     'quantity' => 1,
                 ]);
+            }
+
+            if ($carryForward) {
+                $previous = Invoice::where('resident_id', $resident->id)
+                    ->where('balance', '>', 0)
+                    ->orderByDesc('invoice_date')
+                    ->first();
+
+                if ($previous) {
+                    InvoiceItem::create([
+                        'business_id' => BusinessContext::id(),
+                        'invoice_id' => $invoice->id,
+                        'description' => 'Arrears b/f from '.$previous->reference,
+                        'amount' => $previous->balance,
+                        'quantity' => 1,
+                    ]);
+
+                    $previous->amount_paid = $previous->total_amount;
+                    $previous->balance = 0;
+                    $previous->status = 'paid';
+                    $previous->saveQuietly();
+                }
             }
 
             $invoice->recalculateTotals();

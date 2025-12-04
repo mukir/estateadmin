@@ -117,6 +117,12 @@
                             <option value="sent">Sent + email</option>
                         </select>
                     </div>
+                    <label class="flex items-start gap-2 text-sm font-medium text-slate-700">
+                        <input type="checkbox" name="carry_forward" value="1" class="mt-1 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500">
+                        <span>
+                            Bring forward any open balance from the previous invoice for each resident and close the older invoice automatically.
+                        </span>
+                    </label>
                     <div class="md:col-span-4 flex justify-end">
                         <x-primary-button class="px-5">Generate invoices</x-primary-button>
                     </div>
