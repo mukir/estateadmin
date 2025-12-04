@@ -96,6 +96,13 @@
 
     <div class="mt-6 border-t border-gray-100 pt-4 space-y-1">
         <a
+            href="{{ route('docs') }}"
+            class="flex items-center justify-between rounded-md border border-transparent px-3 py-2 text-sm font-medium text-gray-700 hover:border-gray-200 hover:bg-gray-50 hover:text-gray-900"
+        >
+            <span>Docs</span>
+        </a>
+
+        <a
             href="{{ route('profile.edit') }}"
             class="flex items-center justify-between rounded-md border border-transparent px-3 py-2 text-sm font-medium text-gray-700 hover:border-gray-200 hover:bg-gray-50 hover:text-gray-900"
         >
