@@ -346,14 +346,10 @@
         <nav>
             <div class="logo">
                 @if (!empty($branding['logo_url']))
-                    <img src="{{ $branding['logo_url'] }}" alt="{{ $branding['platform_name'] ?? 'Estate Admin' }}" style="height:38px; width:38px; border-radius:12px; object-fit:contain; background:white;">
+                    <img src="{{ $branding['logo_url'] }}" alt="{{ $branding['platform_name'] ?? 'Estate Admin' }}" style="height:44px; width:44px; border-radius:12px; object-fit:contain; background:white;">
                 @else
                     <div class="logo-mark">E</div>
                 @endif
-                <div>
-                    <div>{{ $branding['platform_name'] ?? 'Estate Admin' }}</div>
-                    <small style="color: var(--muted); font-weight: 500;">Multi-business management</small>
-                </div>
             </div>
             <div class="nav-links">
                 <a href="#features">Features</a>
