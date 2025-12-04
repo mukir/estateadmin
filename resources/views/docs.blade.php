@@ -225,6 +225,7 @@
                 <div class="badge-row" style="margin-top:8px;">
                     <span class="pill">Email: demo@estateadmin.test</span>
                     <span class="pill">Password: Password123!</span>
+                    <span class="pill">Migaa admin: migaaadmin@estateadmin.test / Password123!</span>
                 </div>
                 <p class="note" style="margin-top:8px;">After login, pick a business or create a trial from the landing page.</p>
             </div>
