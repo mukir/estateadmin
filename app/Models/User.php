@@ -25,6 +25,7 @@ class User extends Authenticatable
         'is_business_owner',
         'status',
         'carry_forward_enabled',
+        'mfa_enabled',
     ];
 
     /**
@@ -90,10 +91,6 @@ class User extends Authenticatable
 
     public function requiresMfa(): bool
     {
-        if ($this->is_business_owner) {
-            return true;
-        }
-
-        return $this->roles->contains(fn ($role) => $role->enforce_mfa);
+        return (bool) $this->mfa_enabled;
     }
 }
