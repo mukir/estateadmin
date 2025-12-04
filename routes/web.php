@@ -35,6 +35,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', function () {
         $user = Auth::user();
 
+        if ($user?->isSuperAdmin()) {
+            return redirect()->route('admin.businesses.index');
+        }
+
         if ($user?->business) {
             return redirect()->route('business.dashboard', ['business' => $user->business->slug]);
         }
