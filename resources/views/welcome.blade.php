@@ -3,7 +3,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Estate Admin | Multi-Business SaaS</title>
+    <title>{{ $branding['platform_name'] ?? 'Estate Admin' }} | Multi-Business SaaS</title>
+    @if (!empty($branding['favicon_url']))
+        <link rel="icon" type="image/png" href="{{ $branding['favicon_url'] }}">
+    @endif
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -342,9 +345,13 @@
     <header>
         <nav>
             <div class="logo">
-                <div class="logo-mark">E</div>
+                @if (!empty($branding['logo_url']))
+                    <img src="{{ $branding['logo_url'] }}" alt="{{ $branding['platform_name'] ?? 'Estate Admin' }}" style="height:38px; width:38px; border-radius:12px; object-fit:contain; background:white;">
+                @else
+                    <div class="logo-mark">E</div>
+                @endif
                 <div>
-                    <div>Estate Admin</div>
+                    <div>{{ $branding['platform_name'] ?? 'Estate Admin' }}</div>
                     <small style="color: var(--muted); font-weight: 500;">Multi-business management</small>
                 </div>
             </div>

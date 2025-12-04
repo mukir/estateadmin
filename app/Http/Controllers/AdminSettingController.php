@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Setting;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
@@ -49,6 +50,8 @@ class AdminSettingController extends Controller
             $path = $request->file('favicon')->store('branding', 'public');
             Setting::set('favicon_url', Storage::url($path));
         }
+
+        Cache::forget('app.settings');
 
         return back()->with('status', 'Platform settings updated.');
     }
