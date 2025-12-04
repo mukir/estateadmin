@@ -59,7 +59,6 @@
                 @else
                     <x-application-logo class="block h-8 w-8 fill-current text-indigo-600" />
                 @endif
-                <span class="text-sm font-semibold text-slate-900">{{ $branding['platform_name'] ?? config('app.name', 'Dashboard') }}</span>
             </a>
             <div class="flex items-center gap-2">
                 <span class="hidden sm:inline-flex items-center rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700 border border-emerald-100">
