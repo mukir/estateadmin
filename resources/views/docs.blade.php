@@ -219,6 +219,15 @@
                     <a href="#operations">Operations</a>
                 </div>
             </div>
+            <div class="card" style="background: var(--card-strong);">
+                <h3>Sample login (demo)</h3>
+                <p class="note">Use this on the staging/demo environment only.</p>
+                <div class="badge-row" style="margin-top:8px;">
+                    <span class="pill">Email: demo@estateadmin.test</span>
+                    <span class="pill">Password: Password123!</span>
+                </div>
+                <p class="note" style="margin-top:8px;">After login, pick a business or create a trial from the landing page.</p>
+            </div>
         </section>
 
         <section id="onboarding" class="panel card">

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\BusinessOnboardingController;
 use App\Http\Controllers\BusinessAppController;
+use App\Http\Controllers\AdminBusinessController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EstateController;
 use App\Http\Controllers\HouseController;
@@ -23,6 +24,12 @@ Route::get('/', function () {
 Route::view('/docs', 'docs')->name('docs');
 
 Route::post('/start-trial', [BusinessOnboardingController::class, 'store'])->name('onboarding.start');
+
+Route::middleware(['auth', 'superadmin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/businesses', [AdminBusinessController::class, 'index'])->name('businesses.index');
+    Route::get('/businesses/{business}/edit', [AdminBusinessController::class, 'edit'])->name('businesses.edit');
+    Route::patch('/businesses/{business}', [AdminBusinessController::class, 'update'])->name('businesses.update');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', function () {

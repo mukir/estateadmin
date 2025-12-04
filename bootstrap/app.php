@@ -3,6 +3,7 @@
 use App\Http\Middleware\EnsureBusinessAccess;
 use App\Http\Middleware\EnsureMfa;
 use App\Http\Middleware\EnsureRole;
+use App\Http\Middleware\EnsureSuperAdmin;
 use App\Http\Middleware\SetBusinessContext;
 use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Auth\Middleware\AuthenticateWithBasicAuth;
@@ -25,6 +26,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'business.access' => EnsureBusinessAccess::class,
             'role' => EnsureRole::class,
             'mfa' => EnsureMfa::class,
+            'superadmin' => EnsureSuperAdmin::class,
         ]);
     })
     ->withSchedule(function ($schedule): void {
