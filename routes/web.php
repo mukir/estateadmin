@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\BusinessOnboardingController;
 use App\Http\Controllers\BusinessAppController;
 use App\Http\Controllers\AdminBusinessController;
+use App\Http\Controllers\AdminSettingController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EstateController;
 use App\Http\Controllers\HouseController;
@@ -29,6 +30,8 @@ Route::middleware(['auth', 'superadmin'])->prefix('admin')->name('admin.')->grou
     Route::get('/businesses', [AdminBusinessController::class, 'index'])->name('businesses.index');
     Route::get('/businesses/{business}/edit', [AdminBusinessController::class, 'edit'])->name('businesses.edit');
     Route::patch('/businesses/{business}', [AdminBusinessController::class, 'update'])->name('businesses.update');
+    Route::get('/settings', [AdminSettingController::class, 'edit'])->name('settings.edit');
+    Route::post('/settings', [AdminSettingController::class, 'update'])->name('settings.update');
 });
 
 Route::middleware('auth')->group(function () {

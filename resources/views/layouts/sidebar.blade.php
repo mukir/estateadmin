@@ -102,6 +102,12 @@
             >
                 <span>Admin · Businesses</span>
             </a>
+            <a
+                href="{{ route('admin.settings.edit') }}"
+                class="flex items-center justify-between rounded-md border border-transparent px-3 py-2 text-sm font-medium text-gray-700 hover:border-gray-200 hover:bg-gray-50 hover:text-gray-900"
+            >
+                <span>Admin · Settings</span>
+            </a>
         @endif
 
         <a
