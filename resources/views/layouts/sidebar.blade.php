@@ -1,6 +1,12 @@
 @php
     use App\Models\Business;
     use App\Support\BusinessContext;
+    use App\Models\Estate;
+    use App\Models\House;
+    use App\Models\Resident;
+    use App\Models\ServiceCharge;
+    use App\Models\Invoice;
+    use App\Models\Payment;
 
     $business = BusinessContext::get();
 
@@ -18,6 +24,19 @@
 
     $businessSlug = $business?->slug ?? (is_string(request()->route('business')) ? request()->route('business') : null);
 
+    $moduleCounts = [];
+
+    if ($business) {
+        $moduleCounts = [
+            'estates' => Estate::forBusiness($business->id)->count(),
+            'houses' => House::forBusiness($business->id)->count(),
+            'residents' => Resident::forBusiness($business->id)->count(),
+            'service_charges' => ServiceCharge::forBusiness($business->id)->count(),
+            'invoices' => Invoice::forBusiness($business->id)->count(),
+            'payments' => Payment::forBusiness($business->id)->count(),
+        ];
+    }
+
     $menu = $business ? [
         [
             'label' => 'Dashboard',
@@ -28,31 +47,37 @@
             'label' => 'Estates',
             'route' => route('app.estates', ['business' => $businessSlug]),
             'active' => request()->routeIs('app.estates*'),
+            'count' => $moduleCounts['estates'] ?? null,
         ],
         [
             'label' => 'Houses',
             'route' => route('app.houses', ['business' => $businessSlug]),
             'active' => request()->routeIs('app.houses*'),
+            'count' => $moduleCounts['houses'] ?? null,
         ],
         [
             'label' => 'Residents',
             'route' => route('app.residents', ['business' => $businessSlug]),
             'active' => request()->routeIs('app.residents*'),
+            'count' => $moduleCounts['residents'] ?? null,
         ],
         [
             'label' => 'Service Charges',
             'route' => route('app.service-charges', ['business' => $businessSlug]),
             'active' => request()->routeIs('app.service-charges*'),
+            'count' => $moduleCounts['service_charges'] ?? null,
         ],
         [
             'label' => 'Invoices',
             'route' => route('app.invoices', ['business' => $businessSlug]),
             'active' => request()->routeIs('app.invoices*'),
+            'count' => $moduleCounts['invoices'] ?? null,
         ],
         [
             'label' => 'Payments',
             'route' => route('app.payments', ['business' => $businessSlug]),
             'active' => request()->routeIs('app.payments*'),
+            'count' => $moduleCounts['payments'] ?? null,
         ],
         [
             'label' => 'Reports',
@@ -83,9 +108,16 @@
             @foreach ($menu as $item)
                 <a
                     href="{{ $item['route'] }}"
-                    class="flex items-center justify-between rounded-md border px-3 py-2 text-sm font-medium transition {{ $item['active'] ? 'border-indigo-200 bg-indigo-50 text-indigo-700' : 'border-transparent text-gray-700 hover:border-gray-200 hover:bg-gray-50 hover:text-gray-900' }}"
+                    class="flex items-center justify-between gap-3 rounded-md border px-3 py-2 text-sm font-medium transition {{ $item['active'] ? 'border-indigo-200 bg-indigo-50 text-indigo-700' : 'border-transparent text-gray-700 hover:border-gray-200 hover:bg-gray-50 hover:text-gray-900' }}"
                 >
-                    <span>{{ $item['label'] }}</span>
+                    <div class="flex items-center gap-2">
+                        <span>{{ $item['label'] }}</span>
+                        @if (array_key_exists('count', $item))
+                            <span class="inline-flex items-center rounded-full bg-gray-100 px-2 py-0.5 text-[11px] font-semibold text-gray-600">
+                                {{ number_format($item['count']) }}
+                            </span>
+                        @endif
+                    </div>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-4 w-4">
                         <path fill-rule="evenodd" d="M7.22 4.22a.75.75 0 011.06 0l4.5 4.5a.75.75 0 010 1.06l-4.5 4.5a.75.75 0 11-1.06-1.06L10.94 10 7.22 6.28a.75.75 0 010-1.06z" clip-rule="evenodd" />
                     </svg>
