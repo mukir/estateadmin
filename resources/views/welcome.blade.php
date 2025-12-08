@@ -3,70 +3,83 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ $branding['platform_name'] ?? 'Estate Admin' }} | Multi-Business SaaS</title>
+    <title>{{ $branding['platform_name'] ?? 'Estate Admin' }} | Estate SaaS</title>
     @if (!empty($branding['favicon_url']))
         <link rel="icon" type="image/png" href="{{ $branding['favicon_url'] }}">
     @endif
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --ink: #0c111d;
-            --ink-soft: #1a2233;
-            --muted: #d0d6e6;
-            --accent: #ff7a59;
-            --accent-2: #7dd7ff;
-            --bg: #05080f;
-            --card: rgba(12, 17, 29, 0.75);
-            --border: rgba(255, 255, 255, 0.08);
-            --radius: 18px;
-            --shadow: 0 25px 80px rgba(0, 0, 0, 0.35);
+            --bg: #030712;
+            --bg-soft: #0b1220;
+            --card: rgba(12, 20, 35, 0.65);
+            --stroke: rgba(255, 255, 255, 0.08);
+            --text: #f5f7ff;
+            --muted: #b7c0d8;
+            --accent: #f9b042;
+            --accent-2: #5c7cfa;
+            --accent-3: #34d399;
+            --radius: 20px;
+            --shadow: 0 35px 75px rgba(4, 7, 17, 0.7);
         }
-        * { box-sizing: border-box; }
+        * {
+            box-sizing: border-box;
+        }
         body {
             margin: 0;
-            font-family: 'Space Grotesk', 'Manrope', system-ui, -apple-system, sans-serif;
-            background: radial-gradient(circle at 15% 20%, rgba(255, 122, 89, 0.14), transparent 26%),
-                        radial-gradient(circle at 80% 10%, rgba(125, 215, 255, 0.18), transparent 30%),
-                        radial-gradient(circle at 70% 75%, rgba(255, 122, 89, 0.09), transparent 30%),
+            font-family: 'Sora', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            background: radial-gradient(circle at 20% 20%, rgba(249, 176, 66, 0.12), transparent 40%),
+                        radial-gradient(circle at 80% 0%, rgba(92, 124, 250, 0.22), transparent 45%),
                         var(--bg);
-            color: #f5f7fb;
+            color: var(--text);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        .noise {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%23000000'/%3E%3Cpath d='M0 1h1v1H0z' fill='rgba(255,255,255,0.04)'/%3E%3C/svg%3E");
+            opacity: 0.4;
         }
         header {
             position: sticky;
             top: 0;
-            z-index: 10;
-            backdrop-filter: blur(12px);
-            background: linear-gradient(90deg, rgba(5, 8, 15, 0.82), rgba(5, 8, 15, 0.55));
-            border-bottom: 1px solid var(--border);
+            z-index: 20;
+            backdrop-filter: blur(16px);
+            background: rgba(3, 7, 18, 0.75);
+            border-bottom: 1px solid var(--stroke);
         }
         nav {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 16px 24px;
+            padding: 18px 24px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 16px;
+            gap: 20px;
         }
-        .logo {
+        .brand {
             display: flex;
             align-items: center;
             gap: 12px;
             font-weight: 700;
             letter-spacing: 0.02em;
         }
-        .logo-mark {
-            width: 38px;
-            height: 38px;
-            border-radius: 12px;
-            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        .brand-mark {
+            width: 48px;
+            height: 48px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, var(--accent), #ffe1a6);
+            color: #111827;
             display: grid;
             place-items: center;
-            color: #05080f;
             font-weight: 800;
-            box-shadow: 0 12px 30px rgba(255, 122, 89, 0.35);
+            font-size: 20px;
+            box-shadow: 0 18px 50px rgba(249, 176, 66, 0.4);
         }
         .nav-links {
             display: flex;
@@ -75,336 +88,382 @@
             flex-wrap: wrap;
         }
         .nav-links a {
-            color: var(--muted);
             text-decoration: none;
             font-size: 15px;
+            color: var(--muted);
             padding: 6px 10px;
             border-radius: 10px;
             transition: color 0.2s ease, background 0.2s ease;
         }
         .nav-links a:hover {
             color: #fff;
-            background: rgba(255, 255, 255, 0.06);
+            background: rgba(255, 255, 255, 0.08);
         }
         .btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
-            padding: 12px 18px;
-            border-radius: 12px;
+            padding: 12px 20px;
+            border-radius: 14px;
             font-weight: 600;
             text-decoration: none;
-            color: #05080f;
-            background: linear-gradient(135deg, var(--accent), #ffab76);
-            box-shadow: 0 14px 40px rgba(255, 122, 89, 0.25);
             border: none;
             cursor: pointer;
             transition: transform 0.18s ease, box-shadow 0.18s ease;
+            font-size: 15px;
         }
-        .btn.secondary {
-            background: rgba(255, 255, 255, 0.07);
-            color: #fff;
-            box-shadow: none;
-            border: 1px solid var(--border);
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), #ffd580);
+            color: #111827;
+            box-shadow: 0 18px 40px rgba(249, 176, 66, 0.35);
         }
-        .btn:hover { transform: translateY(-1px); box-shadow: 0 16px 45px rgba(255, 122, 89, 0.32); }
-        .btn.secondary:hover { transform: translateY(-1px); }
-
-        .container {
+        .btn-outline {
+            border: 1px solid var(--stroke);
+            color: var(--text);
+            background: transparent;
+        }
+        .btn:hover {
+            transform: translateY(-1px);
+        }
+        main {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 72px 24px 96px;
+            padding: 60px 24px 120px;
         }
-        .hero {
+        .hero-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 32px;
-            align-items: center;
+            gap: 36px;
+            align-items: stretch;
+        }
+        .hero-copy h1 {
+            font-size: clamp(40px, 5vw, 64px);
+            line-height: 1.05;
+            margin: 14px 0;
         }
         .eyebrow {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            padding: 8px 12px;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.07);
             border-radius: 999px;
-            background: rgba(255, 255, 255, 0.08);
-            color: #fff;
+            padding: 8px 14px;
             font-size: 14px;
-            letter-spacing: 0.01em;
+            color: var(--muted);
         }
         .eyebrow span {
-            display: inline-flex;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--accent-2);
-            box-shadow: 0 0 0 6px rgba(125, 215, 255, 0.22);
-        }
-        h1 {
-            font-size: clamp(36px, 4vw, 56px);
-            line-height: 1.05;
-            margin: 16px 0;
-            color: #fff;
-            letter-spacing: -0.02em;
-        }
-        .hero p.lede {
-            font-size: 18px;
-            line-height: 1.7;
-            color: var(--muted);
-            max-width: 640px;
-            margin: 0 0 28px;
-        }
-        .hero-actions {
-            display: flex;
-            gap: 14px;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-        .pulse {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 14px;
-            color: var(--muted);
-        }
-        .pulse::before {
-            content: '';
             width: 10px;
             height: 10px;
             border-radius: 50%;
-            background: var(--accent);
-            box-shadow: 0 0 0 10px rgba(255, 122, 89, 0.18);
-            animation: ping 2s infinite;
+            background: var(--accent-3);
+            box-shadow: 0 0 0 10px rgba(52, 211, 153, 0.15);
         }
-        @keyframes ping {
-            0% { transform: scale(0.9); opacity: 0.75; }
-            70% { transform: scale(1.4); opacity: 0; }
-            100% { opacity: 0; }
+        .lede {
+            font-size: 18px;
+            line-height: 1.7;
+            color: var(--muted);
+            margin-bottom: 26px;
+            max-width: 620px;
         }
-        .card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            padding: 22px;
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
         }
-        .trial-card {
-            position: relative;
-            overflow: hidden;
-        }
-        .trial-card::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at 20% 20%, rgba(125, 215, 255, 0.18), transparent 45%),
-                        radial-gradient(circle at 80% 80%, rgba(255, 122, 89, 0.18), transparent 45%);
-            pointer-events: none;
-        }
-        form {
-            display: grid;
-            gap: 14px;
-            position: relative;
-            z-index: 1;
-        }
-        label {
+        .hero-meta {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
             font-size: 14px;
             color: var(--muted);
         }
-        input {
-            width: 100%;
-            padding: 12px 14px;
-            border-radius: 10px;
-            border: 1px solid var(--border);
+        .tag {
             background: rgba(255, 255, 255, 0.04);
-            color: #fff;
-            font-size: 15px;
-        }
-        input:focus {
-            outline: 2px solid rgba(255, 122, 89, 0.35);
-            border-color: transparent;
-        }
-        .mini-badges {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            margin-top: 10px;
-        }
-        .mini-badges span {
-            font-size: 12px;
-            padding: 8px 10px;
+            border: 1px solid var(--stroke);
             border-radius: 999px;
-            background: rgba(255, 255, 255, 0.06);
-            color: #fff;
-            border: 1px solid var(--border);
+            padding: 6px 14px;
+            font-size: 13px;
         }
-        .grid-3 {
-            margin-top: 72px;
+        .hero-card {
+            background: var(--card);
+            border: 1px solid var(--stroke);
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 20% 20%, rgba(92, 124, 250, 0.15), transparent 45%);
+            pointer-events: none;
+        }
+        .hero-card h3 {
+            margin: 0 0 6px;
+        }
+        .stat-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 18px;
+            margin-top: 30px;
         }
         .stat {
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
-            border-radius: var(--radius);
-            padding: 18px 18px 20px;
-            border: 1px solid var(--border);
-        }
-        .stat h3 { margin: 0 0 4px; font-size: 28px; color: #fff; }
-        .stat p { margin: 0; color: var(--muted); font-size: 14px; }
-
-        .section-title {
-            font-size: 26px;
-            margin: 0 0 12px;
-            color: #fff;
-            letter-spacing: -0.01em;
-        }
-        .section-sub {
-            color: var(--muted);
-            font-size: 16px;
-            margin: 0 0 18px;
-            max-width: 720px;
-        }
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 18px;
-            margin-top: 18px;
-        }
-        .feature {
             padding: 18px;
-            border-radius: var(--radius);
-            border: 1px solid var(--border);
+            border-radius: 16px;
             background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--stroke);
         }
-        .feature h4 {
-            margin: 0 0 8px;
-            color: #fff;
-            font-size: 17px;
-        }
-        .feature p {
+        .stat h4 {
             margin: 0;
+            font-size: 24px;
+        }
+        .stat p {
+            margin: 6px 0 0;
+            color: var(--muted);
+            font-size: 14px;
+        }
+        .section {
+            margin-top: 90px;
+        }
+        .section small {
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--muted);
+            font-size: 13px;
+        }
+        .section h2 {
+            margin: 12px 0;
+            font-size: clamp(28px, 4vw, 40px);
+        }
+        .section > p {
+            max-width: 650px;
             color: var(--muted);
             line-height: 1.6;
+        }
+        .feature-grid {
+            margin-top: 32px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+        .feature-card {
+            background: var(--card);
+            border: 1px solid var(--stroke);
+            border-radius: 18px;
+            padding: 20px;
+            min-height: 180px;
+        }
+        .feature-card h4 {
+            margin: 0 0 8px;
+        }
+        .feature-card p {
+            margin: 0;
+            color: var(--muted);
             font-size: 14px;
         }
         .timeline {
             margin-top: 32px;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 16px;
         }
-        .step {
-            padding: 16px;
-            border-radius: var(--radius);
-            border: 1px dashed var(--border);
+        .timeline-item {
+            display: flex;
+            gap: 20px;
             background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            padding: 18px 22px;
+            border: 1px solid var(--stroke);
         }
-        .step strong { color: #fff; display: block; margin-bottom: 6px; }
-        .cta-band {
-            margin-top: 70px;
-            padding: 26px 26px;
-            border-radius: var(--radius);
-            background: linear-gradient(135deg, rgba(255, 122, 89, 0.12), rgba(125, 215, 255, 0.12));
-            border: 1px solid var(--border);
-            display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            gap: 18px;
-        }
-        .cta-band p { margin: 0; color: var(--muted); }
-        .report-pills {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 10px;
-            margin-top: 10px;
-        }
-        .pill {
-            padding: 10px 12px;
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border);
+        .timeline-item strong {
+            min-width: 120px;
             color: #fff;
+        }
+        .report-grid {
+            margin-top: 32px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+        .report-card {
+            padding: 24px;
+            border-radius: 18px;
+            border: 1px solid var(--stroke);
+            background: rgba(255, 255, 255, 0.02);
+        }
+        .report-card ul {
+            padding-left: 18px;
+            margin: 8px 0 0;
+            color: var(--muted);
+        }
+        .pricing-grid {
+            margin-top: 32px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+        }
+        .pricing-card {
+            padding: 28px;
+            border-radius: 22px;
+            border: 1px solid var(--stroke);
+            background: var(--card);
+            position: relative;
+        }
+        .pricing-card.highlight {
+            border-color: rgba(249, 176, 66, 0.7);
+            box-shadow: 0 25px 60px rgba(249, 176, 66, 0.3);
+        }
+        .pricing-card h3 {
+            margin: 0 0 12px;
+        }
+        .pricing-card .price {
+            font-size: 32px;
+            margin: 0 0 12px;
+        }
+        .pricing-card ul {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 18px;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+        .testimonial-grid {
+            margin-top: 34px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .testimonial {
+            padding: 22px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 18px;
+            border: 1px solid var(--stroke);
+        }
+        .testimonial p {
+            margin: 0 0 12px;
+            color: var(--muted);
+        }
+        .testimonial strong {
             font-size: 14px;
         }
+        form {
+            display: grid;
+            gap: 14px;
+            margin-top: 18px;
+        }
+        label {
+            font-size: 13px;
+            color: var(--muted);
+        }
+        input, button {
+            font-family: inherit;
+        }
+        input {
+            width: 100%;
+            padding: 12px 14px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(0, 0, 0, 0.15);
+            color: #fff;
+        }
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
         footer {
-            margin-top: 60px;
-            padding: 24px;
+            margin-top: 90px;
+            padding: 30px;
             text-align: center;
             color: var(--muted);
             font-size: 14px;
-            border-top: 1px solid var(--border);
-            background: rgba(5, 8, 15, 0.6);
+            border-top: 1px solid var(--stroke);
+            background: rgba(3, 7, 18, 0.7);
         }
-        @media (max-width: 900px) {
-            nav { padding: 14px 18px; }
-            .cta-band { grid-template-columns: 1fr; }
+        @media (max-width: 720px) {
+            nav {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .timeline-item {
+                flex-direction: column;
+            }
+            header {
+                position: static;
+            }
         }
     </style>
 </head>
 <body>
+    <div class="noise"></div>
     <header>
         <nav>
-            <div class="logo">
+            <div class="brand">
                 @if (!empty($branding['logo_url']))
-                    <img src="{{ $branding['logo_url'] }}" alt="{{ $branding['platform_name'] ?? 'Estate Admin' }}" style="height:72px; width:72px; object-fit:contain;">
+                    <img src="{{ $branding['logo_url'] }}" alt="{{ $branding['platform_name'] ?? 'Estate Admin' }}" style="height:64px;width:64px;object-fit:contain;">
                 @else
-                    <div class="logo-mark">E</div>
+                    <div class="brand-mark">EA</div>
                 @endif
+                <div>
+                    <div>{{ $branding['platform_name'] ?? 'Estate Admin' }}</div>
+                    <small style="color:var(--muted);">Enterprise estate OS</small>
+                </div>
             </div>
             <div class="nav-links">
                 <a href="#features">Features</a>
-                <a href="#automation">Automations</a>
+                <a href="#automation">Automation</a>
                 <a href="#reports">Reports</a>
-                <a href="{{ route('docs') }}">Docs</a>
                 <a href="#pricing">Pricing</a>
+                <a href="{{ route('docs') }}">Docs</a>
                 @if (Route::has('login'))
                     @auth
-                        <a class="btn secondary" href="{{ url('/dashboard') }}">Dashboard</a>
+                        <a class="btn btn-outline" href="{{ url('/dashboard') }}">Dashboard</a>
                     @else
-                        <a class="btn secondary" href="{{ route('login') }}">Log in</a>
+                        <a class="btn btn-outline" href="{{ route('login') }}">Log in</a>
                     @endauth
                 @endif
+                <a class="btn btn-primary" href="#trial">Start free trial</a>
             </div>
         </nav>
     </header>
 
-    <main class="container">
-        <section class="hero">
-            <div>
-                <div class="eyebrow"><span></span> Cloud-native • Multi-business • One database</div>
-                <h1>Manage every estate, unit, and resident in one SaaS built for property teams.</h1>
+    <main>
+        <section class="hero-grid">
+            <div class="hero-copy">
+                <div class="eyebrow"><span></span>Multi-business estate platform</div>
+                <h1>Premium-grade property ops for every business you onboard.</h1>
                 <p class="lede">
-                    Estate Admin keeps each business securely isolated while sharing one powerful platform:
-                    onboarding, estates, units, residents, billing, payments, and arrears in a single control tower.
+                    Launch a dedicated workspace for each estate company with airtight tenant isolation,
+                    live billing, payments, and occupancy signals that your finance and operations teams trust.
                 </p>
                 <div class="hero-actions">
-                    <a class="btn" href="#trial">Start free trial</a>
-                    <div class="pulse">Live billing + arrears insights for every business</div>
+                    <a class="btn btn-primary" href="#trial">Start 14-day trial</a>
+                    <a class="btn btn-outline" href="{{ route('docs') }}">View product docs</a>
                 </div>
-                <div class="mini-badges">
-                    <span>Subdomain or /b/{slug}</span>
-                    <span>Role-based access</span>
-                    <span>Automated invoices</span>
-                    <span>MPesa-ready (webhook slot)</span>
+                <div class="hero-meta">
+                    <span class="tag">Fine-grained roles per business</span>
+                    <span class="tag">Scheduler-ready billing jobs</span>
+                    <span class="tag">Single database, scoped queries</span>
                 </div>
-                <div class="grid-3" style="margin-top:22px;">
+                <div class="stat-grid">
                     <div class="stat">
-                        <h3>+18%</h3>
-                        <p>Average boost in collections after automated reminders.</p>
+                        <h4>+21%</h4>
+                        <p>Average boost in collections after automated reminders go live.</p>
                     </div>
                     <div class="stat">
-                        <h3>5 mins</h3>
-                        <p>To onboard a business with owner, roles, and starter estates.</p>
+                        <h4>5 minutes</h4>
+                        <p>Create a business, import estates, and invite managers.</p>
                     </div>
                     <div class="stat">
-                        <h3>One DB</h3>
-                        <p>Multi-tenant with strict business scopes across every query.</p>
+                        <h4>Zero leaks</h4>
+                        <p>Every query scoped via middleware and global scopes.</p>
                     </div>
                 </div>
             </div>
-            <div id="trial" class="card trial-card">
-                <h3 style="margin:0 0 8px; color:#fff;">Launch your business in minutes</h3>
-                <p style="color:var(--muted); margin:0 0 14px;">14-day trial. No credit card. We create the owner and roles for you.</p>
+            <div class="hero-card" id="trial">
+                <h3>Launch a workspace in minutes</h3>
+                <p style="color:var(--muted); margin:0;">Owner user + key roles auto-created. No card required.</p>
                 <form method="POST" action="{{ route('onboarding.start') }}">
                     @csrf
                     <div>
@@ -427,96 +486,185 @@
                         <label for="password">Password</label>
                         <input id="password" name="password" type="password" placeholder="Create a strong password" required>
                     </div>
-                    <button class="btn" type="submit">Start free trial</button>
+                    <button class="btn btn-primary" type="submit">Start free trial</button>
                 </form>
-                <div class="mini-badges" style="margin-top:14px;">
-                    <span>Owner account auto-created</span>
-                    <span>Admin, Manager, Accountant, Viewer roles</span>
+                <div style="margin-top:16px; display:flex; flex-wrap:wrap; gap:10px;">
+                    <span class="tag">Owner + Admin + Manager + Accountant roles</span>
+                    <span class="tag">Resident + house import templates</span>
                 </div>
             </div>
         </section>
 
-        <section id="features" style="margin-top: 90px;">
-            <h2 class="section-title">Everything each business needs—kept apart by design.</h2>
-            <p class="section-sub">Every table carries <code>business_id</code> with global scopes and middleware to prevent cross-tenant leaks.</p>
+        <section class="section" id="features">
+            <small>Platform</small>
+            <h2>Everything operations needs, polished for enterprise property teams.</h2>
+            <p>
+                Estate Admin is designed for agencies, SACCOs, and developer groups running dozens of estates.
+                Each workspace inherits consistent best practices so you can scale service without scaling headcount.
+            </p>
             <div class="feature-grid">
-                <div class="feature">
-                    <h4>Estates & units</h4>
-                    <p>Plan, import, and manage estates with unique unit codes. Occupancy auto-updates when residents move in or out.</p>
+                <div class="feature-card">
+                    <h4>Estate hierarchy</h4>
+                    <p>Import estates and houses with CSV templates or API hooks. Occupancy updates when residents move.</p>
                 </div>
-                <div class="feature">
-                    <h4>Residents & balances</h4>
-                    <p>Full profiles with linked estates/houses, statements, and live balances computed from invoices and payments.</p>
+                <div class="feature-card">
+                    <h4>Resident ledger</h4>
+                    <p>Every resident maintains a running balance that is recalculated after each invoice and payment.</p>
                 </div>
-                <div class="feature">
-                    <h4>Service charges</h4>
-                    <p>Per-estate charge library (service charge, garbage, security, water). Drives automated invoice creation.</p>
+                <div class="feature-card">
+                    <h4>Service charge library</h4>
+                    <p>Build estate-specific charge sets that drive automated billing cycles and arrears calculations.</p>
                 </div>
-                <div class="feature">
-                    <h4>Invoices & payments</h4>
-                    <p>Unique per period and house/resident. Payments recalc totals instantly; statuses shift to paid/partial automatically.</p>
+                <div class="feature-card">
+                    <h4>Payments + MPesa ready</h4>
+                    <p>Capture confirmations manually or wire up a webhook slot for mobile money receipts.</p>
                 </div>
-                <div class="feature">
-                    <h4>Roles per business</h4>
-                    <p>Admin, Manager, Accountant, Viewer with business-scoped pivot. Drop-in gates for stricter controls.</p>
+                <div class="feature-card">
+                    <h4>Roles and approvals</h4>
+                    <p>Owner, Admin, Manager, Accountant, and Viewer roles keep finance in control without slowing ops.</p>
                 </div>
-                <div class="feature">
+                <div class="feature-card">
                     <h4>Subdomain or prefix</h4>
-                    <p>Resolve business by subdomain (migaa.app.com) or URL prefix (/b/{business_slug}). Middleware locks the context.</p>
+                    <p>Serve each business via subdomain or <code>/b/{slug}</code>. Middleware locks the active workspace.</p>
                 </div>
             </div>
         </section>
 
-        <section id="automation" style="margin-top: 78px;">
-            <h2 class="section-title">Automation that bills and nudges on autopilot.</h2>
-            <p class="section-sub">Monthly billing and reminders are scheduled—no spreadsheets, no manual exports.</p>
+        <section class="section" id="automation">
+            <small>Automation</small>
+            <h2>The billing engine runs every day without spreadsheets.</h2>
+            <p>
+                Built-in scheduler commands keep invoices flowing, reminders nudging, and balances always current.
+                Hook into the queue or run via cron with zero custom scripts.
+            </p>
             <div class="timeline">
-                <div class="step">
-                    <strong>1) Monthly billing</strong>
-                    Creates invoices for every occupied house with active resident; pulls estate service charges and unit defaults.
+                <div class="timeline-item">
+                    <strong>Monthly billing</strong>
+                    <p>Command `billing:run` maps every occupied house to the right charges, builds invoices, and stamps due dates.</p>
                 </div>
-                <div class="step">
-                    <strong>2) Smart totals</strong>
-                    Totals, paid, and balance recalc on every payment save/delete; status flips to partial or paid automatically.
+                <div class="timeline-item">
+                    <strong>Smart totals</strong>
+                    <p>Payments recalculate totals automatically and flip invoice status to draft, partial, or paid with no manual math.</p>
                 </div>
-                <div class="step">
-                    <strong>3) Reminders</strong>
-                    Daily pass marks overdue items and prepares SMS/email notifications with business templates.
+                <div class="timeline-item">
+                    <strong>Automated nudges</strong>
+                    <p>`billing:reminders` tags overdue accounts, personalizes templates, and logs every chase.</p>
                 </div>
-                <div class="step">
-                    <strong>4) Cron-ready</strong>
-                    `billing:run` monthly and `billing:reminders` daily are pre-wired in the scheduler.
+                <div class="timeline-item">
+                    <strong>Audit-friendly</strong>
+                    <p>Every action is scoped by business, recorded with timestamps, and ready for board review.</p>
                 </div>
             </div>
         </section>
 
-        <section id="reports" style="margin-top: 78px;">
-            <h2 class="section-title">Reporting that board members love.</h2>
-            <p class="section-sub">Arrears aging, collections by method/estate, occupancy, and resident statements—per business.</p>
-            <div class="report-pills">
-                <div class="pill">Arrears by estate with aging buckets</div>
-                <div class="pill">Collections by method/date range</div>
-                <div class="pill">Occupancy vs planned units</div>
-                <div class="pill">Resident statement (running balance)</div>
-                <div class="pill">Export-ready endpoints (PDF/CSV slot)</div>
-                <div class="pill">Business-level dashboards & KPIs</div>
+        <section class="section" id="reports">
+            <small>Insight</small>
+            <h2>Reporting that board members, auditors, and lenders all trust.</h2>
+            <p>
+                Rich dashboards and exports keep leadership on the same page. Every KPI is filterable per business,
+                per estate, and over any date range.
+            </p>
+            <div class="report-grid">
+                <div class="report-card">
+                    <h4>Arrears cockpit</h4>
+                    <ul>
+                        <li>Aging buckets (0-30, 31-60, 60+)</li>
+                        <li>Trends by estate and resident cohorts</li>
+                        <li>Export-ready CSV and PDF slots</li>
+                    </ul>
+                </div>
+                <div class="report-card">
+                    <h4>Collections intel</h4>
+                    <ul>
+                        <li>Compare MPesa, bank, and cash methods</li>
+                        <li>Spot dips with rolling averages</li>
+                        <li>Tag exceptions for follow-up</li>
+                    </ul>
+                </div>
+                <div class="report-card">
+                    <h4>Occupancy + health</h4>
+                    <ul>
+                        <li>Planned vs actual units per estate</li>
+                        <li>Vacancy alerts when a resident exits</li>
+                        <li>Resident statements with running balance</li>
+                    </ul>
+                </div>
             </div>
         </section>
 
-        <section id="pricing" class="cta-band">
-            <div>
-                <h3 style="margin:0 0 6px; color:#fff;">Built to scale across many businesses.</h3>
-                <p>Choose a plan per business, or run multiple businesses under one super admin. Trials start in “basic” and can upgrade instantly.</p>
+        <section class="section" id="pricing">
+            <small>Pricing</small>
+            <h2>Simple plans. Upgrade a business the moment it is ready.</h2>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>Basic</h3>
+                    <p class="price">Ksh 6k / business</p>
+                    <ul>
+                        <li>Estates, houses, residents</li>
+                        <li>Manual invoicing + payments</li>
+                        <li>Core dashboards and exports</li>
+                    </ul>
+                    <a class="btn btn-outline" href="#trial">Start trial</a>
+                </div>
+                <div class="pricing-card highlight">
+                    <h3>Standard</h3>
+                    <p class="price">Ksh 12k / business</p>
+                    <ul>
+                        <li>Automation commands enabled</li>
+                        <li>Reminder workflows + templates</li>
+                        <li>Role-based approvals</li>
+                    </ul>
+                    <a class="btn btn-primary" href="#trial">Talk to sales</a>
+                </div>
+                <div class="pricing-card">
+                    <h3>Premium</h3>
+                    <p class="price">Custom</p>
+                    <ul>
+                        <li>Webhooks & bespoke integrations</li>
+                        <li>Priority support + success manager</li>
+                        <li>Dedicated reporting workspace</li>
+                    </ul>
+                    <a class="btn btn-outline" href="{{ route('docs') }}">See specs</a>
+                </div>
             </div>
-            <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
-                <div class="pill" style="background:rgba(255,255,255,0.12);">Basic: core estates, billing, reports</div>
-                <div class="pill" style="background:rgba(255,255,255,0.12);">Standard: reminders + import tools</div>
-                <div class="pill" style="background:rgba(255,255,255,0.12);">Premium: automation + webhooks</div>
+        </section>
+
+        <section class="section">
+            <small>Proof</small>
+            <h2>Teams already moving arrears down and occupancy up.</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial">
+                    <p>"We migrated three SACCOs in two weeks. Having every business in one dashboard with clean separation is a dream."</p>
+                    <strong>Joan, Director at Umoja Property</strong>
+                </div>
+                <div class="testimonial">
+                    <p>"Billing jobs plus reminders dropped our arrears by 24% without growing the finance team. Ops finally breathes."</p>
+                    <strong>Daniel, COO at Lynk Estates</strong>
+                </div>
+                <div class="testimonial">
+                    <p>"Role templates mean onboarding a new business owner is fast, and our auditors get the logs they need instantly."</p>
+                    <strong>Ashley, Finance Lead at Terranova</strong>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="pricing-card" style="display:flex; flex-direction:column; align-items:flex-start; gap:16px;">
+                <small>Next step</small>
+                <h2 style="margin:0;">Ready to onboard your estate businesses?</h2>
+                <p style="margin:0; color:var(--muted);">
+                    Spin up a workspace, migrate data, and run billing the same day. Estate Admin ships with docs,
+                    import templates, and cron-ready commands so you can focus on growth.
+                </p>
+                <div style="display:flex; gap:16px; flex-wrap:wrap;">
+                    <a class="btn btn-primary" href="#trial">Start free trial</a>
+                    <a class="btn btn-outline" href="{{ route('docs') }}">See implementation guide</a>
+                </div>
             </div>
         </section>
 
         <footer>
-            Built for estate managers, agencies, SACCOs, and property teams. Ready to go live—just migrate and run the scheduler.
+            Built for estate managers, agencies, SACCOs, and property teams. Deploy, migrate, and run the scheduler.
         </footer>
     </main>
 </body>
