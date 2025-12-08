@@ -359,12 +359,51 @@
         }
         footer {
             margin-top: 90px;
-            padding: 30px;
-            text-align: center;
+            padding: 60px 0 40px;
+            background: #fff;
+            border-top: 1px solid var(--stroke);
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px 30px;
+        }
+        .footer-column h4 {
+            margin: 0 0 12px;
+            font-size: 16px;
+            color: var(--text);
+        }
+        .footer-column p,
+        .footer-column li,
+        .footer-column a {
             color: var(--muted);
             font-size: 14px;
+            text-decoration: none;
+        }
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            gap: 8px;
+        }
+        .footer-column a:hover {
+            color: var(--accent-2);
+        }
+        .footer-brand strong {
+            font-size: 18px;
+            color: var(--text);
+        }
+        .footer-bottom {
             border-top: 1px solid var(--stroke);
-            background: var(--card);
+            margin-top: 20px;
+            padding: 20px 24px 0;
+            text-align: center;
+            color: var(--muted);
+            font-size: 13px;
         }
         @media (max-width: 720px) {
             nav {
@@ -649,7 +688,52 @@
         </section>
 
         <footer>
-            Built for estate managers, agencies, SACCOs, and property teams. Deploy, migrate, and run the scheduler.
+            <div class="footer-grid">
+                <div class="footer-column footer-brand">
+                    @if (!empty($branding['logo_url']))
+                        <img src="{{ $branding['logo_url'] }}" alt="{{ $branding['platform_name'] ?? 'Estate Admin' }}" class="brand-logo" style="max-height:50px;">
+                    @else
+                        <strong>{{ $branding['platform_name'] ?? 'Estate Admin' }}</strong>
+                    @endif
+                    <p>Enterprise software for estate managers, agencies, SACCOs, and property teams.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Platform</h4>
+                    <ul>
+                        <li><a href="#features">Features overview</a></li>
+                        <li><a href="#automation">Automation engine</a></li>
+                        <li><a href="#reports">Reporting</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="{{ route('docs') }}">Product docs</a></li>
+                        @if (Route::has('login'))
+                            @auth
+                                <li><a href="{{ url('/dashboard') }}">Dashboard</a></li>
+                            @else
+                                <li><a href="{{ route('login') }}">Log in</a></li>
+                            @endauth
+                        @endif
+                        <li><a href="#trial">Start a trial</a></li>
+                        <li><a href="#pricing">Compare plans</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="mailto:hello@estateadmin.test">hello@estateadmin.test</a></li>
+                        <li><a href="tel:+254700000000">+254 700 000000</a></li>
+                        <li><a href="#reports">Schedule a demo</a></li>
+                        <li><a href="#trial">Implementation help</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                © {{ date('Y') }} {{ $branding['platform_name'] ?? 'Estate Admin' }} · Built to deploy, migrate, and run billing jobs safely.
+            </div>
         </footer>
     </main>
 </body>
