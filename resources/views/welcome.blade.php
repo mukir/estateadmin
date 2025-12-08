@@ -405,6 +405,26 @@
             color: var(--muted);
             font-size: 13px;
         }
+        .whatsapp-widget {
+            position: fixed;
+            right: 24px;
+            bottom: 24px;
+            background: linear-gradient(135deg, #25d366, #1fac4d);
+            color: #fff;
+            border-radius: 999px;
+            padding: 12px 18px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 18px 40px rgba(37, 211, 102, 0.4);
+            z-index: 25;
+        }
+        .whatsapp-widget svg {
+            width: 20px;
+            height: 20px;
+        }
         @media (max-width: 720px) {
             nav {
                 flex-wrap: wrap;
@@ -412,6 +432,11 @@
             }
             header { position: static; }
             .timeline-item { flex-direction: column; }
+            .whatsapp-widget {
+                right: 16px;
+                bottom: 16px;
+                padding: 10px 16px;
+            }
         }
     </style>
 </head>
@@ -725,7 +750,7 @@
                     <h4>Company</h4>
                     <ul>
                         <li><a href="mailto:hello@estateadmin.test">hello@estateadmin.test</a></li>
-                        <li><a href="tel:+254700000000">+254 700 000000</a></li>
+                        <li><a href="tel:+254725345345">+254725 345 345</a></li>
                         <li><a href="#reports">Schedule a demo</a></li>
                         <li><a href="#trial">Implementation help</a></li>
                     </ul>
@@ -735,6 +760,17 @@
                 © {{ date('Y') }} {{ $branding['platform_name'] ?? 'Estate Admin' }} · Built to deploy, migrate, and run billing jobs safely.
             </div>
         </footer>
+        <a
+            href="https://wa.me/254725345345?text=Hi%20Estate%20Admin%20team"
+            class="whatsapp-widget"
+            target="_blank"
+            rel="noopener"
+        >
+            <svg viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M10 0C4.48 0 0 4.33 0 9.67c0 1.7.45 3.36 1.31 4.85L0 20l5.36-1.27a10.64 10.64 0 0 0 4.64 1.02c5.52 0 10-4.33 10-9.68C20 4.33 15.52 0 10 0zm0 18.15a8.54 8.54 0 0 1-4.1-1.03L3.2 17l.99-2.86A7.48 7.48 0 1 1 17.5 9.6c0 4.36-3.37 7.9-7.5 7.9zm4.15-5.56c-.23-.12-1.38-.74-1.59-.82-.21-.08-.37-.12-.53.12-.16.23-.61.82-.74.99-.13.17-.27.17-.5.06-.23-.12-.97-.35-1.85-1.12-.68-.6-1.14-1.34-1.27-1.57-.13-.23-.01-.35.11-.47.12-.12.23-.24.35-.36.12-.12.16-.23.23-.38.07-.15.04-.28-.02-.4-.06-.12-.53-1.26-.73-1.72-.19-.46-.39-.4-.53-.4-.13 0-.29-.02-.44-.02-.15 0-.4.06-.62.29-.22.23-.84.82-.84 2s.86 2.32.97 2.48c.12.15 1.69 2.55 4.1 3.45.57.22 1.02.35 1.37.45.57.18 1.09.16 1.5.1.46-.07 1.38-.56 1.58-1.1.2-.54.2-1 .14-1.1-.06-.1-.21-.16-.44-.28z"/>
+            </svg>
+            <span>Chat on WhatsApp</span>
+        </a>
     </main>
 </body>
 </html>
