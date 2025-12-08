@@ -12,26 +12,24 @@
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #030712;
-            --bg-soft: #0b1220;
-            --card: rgba(12, 20, 35, 0.65);
-            --stroke: rgba(255, 255, 255, 0.08);
-            --text: #f5f7ff;
-            --muted: #b7c0d8;
+            --bg: #f7f8fc;
+            --bg-soft: #eef2ff;
+            --card: #ffffff;
+            --stroke: rgba(15, 23, 42, 0.08);
+            --text: #0f172a;
+            --muted: #5b6178;
             --accent: #f9b042;
             --accent-2: #5c7cfa;
-            --accent-3: #34d399;
+            --accent-3: #0d9488;
             --radius: 20px;
-            --shadow: 0 35px 75px rgba(4, 7, 17, 0.7);
+            --shadow: 0 30px 70px rgba(15, 23, 42, 0.12);
         }
-        * {
-            box-sizing: border-box;
-        }
+        * { box-sizing: border-box; }
         body {
             margin: 0;
             font-family: 'Sora', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-            background: radial-gradient(circle at 20% 20%, rgba(249, 176, 66, 0.12), transparent 40%),
-                        radial-gradient(circle at 80% 0%, rgba(92, 124, 250, 0.22), transparent 45%),
+            background: radial-gradient(circle at 15% 20%, rgba(92, 124, 250, 0.14), transparent 45%),
+                        radial-gradient(circle at 80% 0%, rgba(249, 176, 66, 0.18), transparent 45%),
                         var(--bg);
             color: var(--text);
             min-height: 100vh;
@@ -42,15 +40,15 @@
             position: fixed;
             inset: 0;
             pointer-events: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%23000000'/%3E%3Cpath d='M0 1h1v1H0z' fill='rgba(255,255,255,0.04)'/%3E%3C/svg%3E");
-            opacity: 0.4;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%23ffffff'/%3E%3Cpath d='M0 1h1v1H0z' fill='rgba(15,23,42,0.05)'/%3E%3C/svg%3E");
+            opacity: 0.35;
         }
         header {
             position: sticky;
             top: 0;
             z-index: 20;
             backdrop-filter: blur(16px);
-            background: rgba(3, 7, 18, 0.75);
+            background: rgba(255, 255, 255, 0.95);
             border-bottom: 1px solid var(--stroke);
         }
         nav {
@@ -60,7 +58,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 20px;
+            gap: 18px;
         }
         .brand {
             display: flex;
@@ -68,36 +66,37 @@
             gap: 12px;
             font-weight: 700;
             letter-spacing: 0.02em;
+            color: var(--text);
         }
         .brand-mark {
             width: 48px;
             height: 48px;
             border-radius: 16px;
             background: linear-gradient(135deg, var(--accent), #ffe1a6);
-            color: #111827;
+            color: #1c1917;
             display: grid;
             place-items: center;
             font-weight: 800;
             font-size: 20px;
-            box-shadow: 0 18px 50px rgba(249, 176, 66, 0.4);
+            box-shadow: 0 18px 50px rgba(249, 176, 66, 0.35);
         }
         .nav-links {
             display: flex;
             align-items: center;
-            gap: 18px;
+            gap: 16px;
             flex-wrap: wrap;
         }
         .nav-links a {
             text-decoration: none;
             font-size: 15px;
             color: var(--muted);
-            padding: 6px 10px;
-            border-radius: 10px;
+            padding: 6px 12px;
+            border-radius: 999px;
             transition: color 0.2s ease, background 0.2s ease;
         }
         .nav-links a:hover {
-            color: #fff;
-            background: rgba(255, 255, 255, 0.08);
+            color: var(--text);
+            background: rgba(92, 124, 250, 0.15);
         }
         .btn {
             display: inline-flex;
@@ -115,21 +114,19 @@
         }
         .btn-primary {
             background: linear-gradient(135deg, var(--accent), #ffd580);
-            color: #111827;
+            color: #1c1917;
             box-shadow: 0 18px 40px rgba(249, 176, 66, 0.35);
         }
         .btn-outline {
-            border: 1px solid var(--stroke);
-            color: var(--text);
-            background: transparent;
+            border: 1px solid rgba(92, 124, 250, 0.3);
+            color: var(--accent-2);
+            background: rgba(92, 124, 250, 0.08);
         }
-        .btn:hover {
-            transform: translateY(-1px);
-        }
+        .btn:hover { transform: translateY(-1px); }
         main {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 60px 24px 120px;
+            padding: 60px 24px 100px;
         }
         .hero-grid {
             display: grid;
@@ -140,31 +137,32 @@
         .hero-copy h1 {
             font-size: clamp(40px, 5vw, 64px);
             line-height: 1.05;
-            margin: 14px 0;
+            margin: 16px 0;
+            color: var(--text);
         }
         .eyebrow {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: rgba(255, 255, 255, 0.07);
+            background: rgba(92, 124, 250, 0.1);
             border-radius: 999px;
             padding: 8px 14px;
             font-size: 14px;
-            color: var(--muted);
+            color: var(--accent-2);
         }
         .eyebrow span {
             width: 10px;
             height: 10px;
             border-radius: 50%;
             background: var(--accent-3);
-            box-shadow: 0 0 0 10px rgba(52, 211, 153, 0.15);
+            box-shadow: 0 0 0 10px rgba(13, 148, 136, 0.2);
         }
         .lede {
             font-size: 18px;
-            line-height: 1.7;
+            line-height: 1.6;
             color: var(--muted);
-            margin-bottom: 26px;
-            max-width: 620px;
+            margin-bottom: 24px;
+            max-width: 640px;
         }
         .hero-actions {
             display: flex;
@@ -174,23 +172,24 @@
         }
         .hero-meta {
             display: flex;
-            gap: 18px;
+            gap: 14px;
             flex-wrap: wrap;
             font-size: 14px;
             color: var(--muted);
         }
         .tag {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid var(--stroke);
+            background: rgba(92, 124, 250, 0.08);
+            border: 1px solid rgba(92, 124, 250, 0.25);
             border-radius: 999px;
             padding: 6px 14px;
             font-size: 13px;
+            color: var(--accent-2);
         }
         .hero-card {
             background: var(--card);
             border: 1px solid var(--stroke);
             border-radius: var(--radius);
-            padding: 30px;
+            padding: 32px;
             box-shadow: var(--shadow);
             position: relative;
             overflow: hidden;
@@ -199,12 +198,11 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: radial-gradient(circle at 20% 20%, rgba(92, 124, 250, 0.15), transparent 45%);
+            background: radial-gradient(circle at 20% 15%, rgba(92, 124, 250, 0.12), transparent 45%);
             pointer-events: none;
         }
-        .hero-card h3 {
-            margin: 0 0 6px;
-        }
+        .hero-card h3 { margin: 0 0 8px; color: var(--text); }
+        .hero-card form { position: relative; z-index: 1; }
         .stat-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -214,21 +212,13 @@
         .stat {
             padding: 18px;
             border-radius: 16px;
-            background: rgba(255, 255, 255, 0.04);
+            background: linear-gradient(145deg, rgba(92, 124, 250, 0.08), rgba(249, 176, 66, 0.12));
             border: 1px solid var(--stroke);
+            box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
         }
-        .stat h4 {
-            margin: 0;
-            font-size: 24px;
-        }
-        .stat p {
-            margin: 6px 0 0;
-            color: var(--muted);
-            font-size: 14px;
-        }
-        .section {
-            margin-top: 90px;
-        }
+        .stat h4 { margin: 0; font-size: 24px; color: var(--text); }
+        .stat p { margin: 6px 0 0; color: var(--muted); font-size: 14px; }
+        .section { margin-top: 90px; }
         .section small {
             text-transform: uppercase;
             letter-spacing: 0.15em;
@@ -238,6 +228,7 @@
         .section h2 {
             margin: 12px 0;
             font-size: clamp(28px, 4vw, 40px);
+            color: var(--text);
         }
         .section > p {
             max-width: 650px;
@@ -256,15 +247,10 @@
             border-radius: 18px;
             padding: 20px;
             min-height: 180px;
+            box-shadow: 0 15px 30px rgba(15, 23, 42, 0.05);
         }
-        .feature-card h4 {
-            margin: 0 0 8px;
-        }
-        .feature-card p {
-            margin: 0;
-            color: var(--muted);
-            font-size: 14px;
-        }
+        .feature-card h4 { margin: 0 0 8px; color: var(--text); }
+        .feature-card p { margin: 0; color: var(--muted); font-size: 14px; }
         .timeline {
             margin-top: 32px;
             display: grid;
@@ -273,15 +259,14 @@
         .timeline-item {
             display: flex;
             gap: 20px;
-            background: rgba(255, 255, 255, 0.03);
+            background: var(--card);
             border-radius: 16px;
             padding: 18px 22px;
             border: 1px solid var(--stroke);
+            box-shadow: 0 15px 30px rgba(15, 23, 42, 0.05);
         }
-        .timeline-item strong {
-            min-width: 120px;
-            color: #fff;
-        }
+        .timeline-item strong { min-width: 140px; color: var(--text); }
+        .timeline-item p { margin: 0; color: var(--muted); }
         .report-grid {
             margin-top: 32px;
             display: grid;
@@ -292,7 +277,8 @@
             padding: 24px;
             border-radius: 18px;
             border: 1px solid var(--stroke);
-            background: rgba(255, 255, 255, 0.02);
+            background: var(--card);
+            box-shadow: 0 15px 30px rgba(15, 23, 42, 0.04);
         }
         .report-card ul {
             padding-left: 18px;
@@ -311,18 +297,14 @@
             border: 1px solid var(--stroke);
             background: var(--card);
             position: relative;
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
         }
         .pricing-card.highlight {
-            border-color: rgba(249, 176, 66, 0.7);
-            box-shadow: 0 25px 60px rgba(249, 176, 66, 0.3);
+            border-color: rgba(249, 176, 66, 0.6);
+            box-shadow: 0 30px 60px rgba(249, 176, 66, 0.25);
         }
-        .pricing-card h3 {
-            margin: 0 0 12px;
-        }
-        .pricing-card .price {
-            font-size: 32px;
-            margin: 0 0 12px;
-        }
+        .pricing-card h3 { margin: 0 0 12px; color: var(--text); }
+        .pricing-card .price { font-size: 32px; margin: 0 0 12px; color: var(--text); }
         .pricing-card ul {
             list-style: none;
             padding: 0;
@@ -338,17 +320,13 @@
         }
         .testimonial {
             padding: 22px;
-            background: rgba(255, 255, 255, 0.03);
+            background: var(--card);
             border-radius: 18px;
             border: 1px solid var(--stroke);
+            box-shadow: 0 15px 30px rgba(15, 23, 42, 0.05);
         }
-        .testimonial p {
-            margin: 0 0 12px;
-            color: var(--muted);
-        }
-        .testimonial strong {
-            font-size: 14px;
-        }
+        .testimonial p { margin: 0 0 12px; color: var(--muted); }
+        .testimonial strong { font-size: 14px; color: var(--text); }
         form {
             display: grid;
             gap: 14px;
@@ -358,19 +336,21 @@
             font-size: 13px;
             color: var(--muted);
         }
-        input, button {
-            font-family: inherit;
-        }
+        input, button { font-family: inherit; }
         input {
             width: 100%;
             padding: 12px 14px;
             border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            background: rgba(0, 0, 0, 0.15);
-            color: #fff;
+            border: 1px solid rgba(148, 163, 184, 0.6);
+            background: #f9fafb;
+            color: var(--text);
         }
         input::placeholder {
-            color: rgba(255, 255, 255, 0.5);
+            color: rgba(15, 23, 42, 0.5);
+        }
+        input:focus {
+            outline: 2px solid rgba(92, 124, 250, 0.35);
+            outline-offset: 1px;
         }
         footer {
             margin-top: 90px;
@@ -379,19 +359,15 @@
             color: var(--muted);
             font-size: 14px;
             border-top: 1px solid var(--stroke);
-            background: rgba(3, 7, 18, 0.7);
+            background: var(--card);
         }
         @media (max-width: 720px) {
             nav {
                 flex-wrap: wrap;
                 justify-content: center;
             }
-            .timeline-item {
-                flex-direction: column;
-            }
-            header {
-                position: static;
-            }
+            header { position: static; }
+            .timeline-item { flex-direction: column; }
         }
     </style>
 </head>
@@ -488,7 +464,7 @@
                     </div>
                     <button class="btn btn-primary" type="submit">Start free trial</button>
                 </form>
-                <div style="margin-top:16px; display:flex; flex-wrap:wrap; gap:10px;">
+                <div style="margin-top:16px; display:flex; flex-wrap:wrap; gap:10px; position:relative; z-index:1;">
                     <span class="tag">Owner + Admin + Manager + Accountant roles</span>
                     <span class="tag">Resident + house import templates</span>
                 </div>
@@ -497,7 +473,7 @@
 
         <section class="section" id="features">
             <small>Platform</small>
-            <h2>Everything operations needs, polished for enterprise property teams.</h2>
+            <h2>Everything operations needs, finished for enterprise property teams.</h2>
             <p>
                 Estate Admin is designed for agencies, SACCOs, and developer groups running dozens of estates.
                 Each workspace inherits consistent best practices so you can scale service without scaling headcount.
