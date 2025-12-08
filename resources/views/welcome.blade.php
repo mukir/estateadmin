@@ -68,6 +68,11 @@
             letter-spacing: 0.02em;
             color: var(--text);
         }
+        .brand-logo {
+            max-height: 60px;
+            width: auto;
+            object-fit: contain;
+        }
         .brand-mark {
             width: 48px;
             height: 48px;
@@ -377,14 +382,18 @@
         <nav>
             <div class="brand">
                 @if (!empty($branding['logo_url']))
-                    <img src="{{ $branding['logo_url'] }}" alt="{{ $branding['platform_name'] ?? 'Estate Admin' }}" style="height:64px;width:64px;object-fit:contain;">
+                    <img
+                        src="{{ $branding['logo_url'] }}"
+                        alt="{{ $branding['platform_name'] ?? 'Estate Admin' }}"
+                        class="brand-logo"
+                    >
                 @else
                     <div class="brand-mark">EA</div>
+                    <div>
+                        <div>{{ $branding['platform_name'] ?? 'Estate Admin' }}</div>
+                        <small style="color:var(--muted);">Enterprise estate OS</small>
+                    </div>
                 @endif
-                <div>
-                    <div>{{ $branding['platform_name'] ?? 'Estate Admin' }}</div>
-                    <small style="color:var(--muted);">Enterprise estate OS</small>
-                </div>
             </div>
             <div class="nav-links">
                 <a href="#features">Features</a>
